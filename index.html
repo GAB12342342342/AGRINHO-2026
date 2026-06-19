@@ -1,170 +1,520 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AluraFlix</title>
-  <style>
-    :root {
-      --bg: #0b0c10;
-      --card: #121317;
-      --text: #e8e8ea;
-      --muted: #b8b8be;
-      --accent: #7aa2f7;
-      --ring: rgba(122,162,247,.35);
-    }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: radial-gradient(1200px 800px at 80% -10%, rgba(122,162,247,.09), transparent 60%),
-                  radial-gradient(800px 600px at -10% 10%, rgba(137,220,235,.08), transparent 45%),
-                  var(--bg);
-      color: var(--text);
-    }
-    header {
-      position: sticky; top: 0; z-index: 10;
-      backdrop-filter: saturate(140%) blur(8px);
-      background: linear-gradient(to bottom, rgba(11,12,16,.9), rgba(11,12,16,.65));
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-    .topbar { display: flex; gap: 16px; align-items: center; justify-content: space-between; }
-    .brand { display: flex; gap: 10px; align-items: center; font-weight: 700; letter-spacing: .3px; }
-    .logo {
-      width: 36px; height: 36px; border-radius: 12px;
-      background: linear-gradient(135deg, var(--accent), #89dceb);
-      box-shadow: 0 4px 14px rgba(122,162,247,.35);
-    }
-    .pill {
-      display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,.1);
-      background: rgba(255,255,255,.02); font-size: 13px; color: var(--muted);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroForte Verde - Sustentabilidade no Campo</title>
+    <style>
+        /* CONFIGURAÇÕES GERAIS / RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
 
-    main { padding: 28px 20px 56px; }
-    .grid {
-      display: grid; gap: 20px; grid-template-columns: repeat(12, 1fr);
-    }
-    @media (max-width: 1100px) { .grid { grid-template-columns: repeat(8, 1fr); } }
-    @media (max-width: 720px)  { .grid { grid-template-columns: repeat(4, 1fr); } }
+        :root {
+            --primary: #2e7d32;
+            --primary-light: #4caf50;
+            --dark: #1b5e20;
+            --text: #333333;
+            --light: #f4f9f4;
+            --white: #ffffff;
+            --warning: #e65100;
+        }
 
-    .card {
-      grid-column: span 6;
-      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 18px;
-      overflow: clip;
-      box-shadow: 0 20px 40px rgba(0,0,0,.35);
-      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-    }
-    .card:hover { transform: translateY(-3px); border-color: var(--ring); box-shadow: 0 30px 60px rgba(0,0,0,.45); }
+        body {
+            color: var(--text);
+            background-color: var(--white);
+            line-height: 1.6;
+        }
 
-    .video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; background: #0c0d12; }
-    .video-wrap iframe {
-      position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block;
-    }
+        /* CABEÇALHO E NAVEGAÇÃO */
+        header {
+            background-color: var(--white);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
 
-    .video-thumb { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
 
-    .meta { padding: 14px 16px 16px; display: grid; gap: 6px; }
-    .title { font-size: 16px; font-weight: 700; line-height: 1.35; }
-    .subtitle { font-size: 13px; color: var(--muted); }
-  </style>
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .btn-quiz {
+            background-color: var(--primary);
+            color: var(--white) !important;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background 0.3s !important;
+        }
+
+        .btn-quiz:hover {
+            background-color: var(--dark);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text);
+        }
+
+        /* SEÇÃO HERO (BANNER PRINCIPAL) */
+        .hero {
+            margin-top: 70px;
+            height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?auto=format&fit=crop&q=80&w=1200') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 1rem;
+        }
+
+        .hero-content h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            max-width: 800px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-cta {
+            background-color: var(--primary-light);
+            color: var(--white);
+            text-decoration: none;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s, background 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-cta:hover {
+            transform: scale(1.05);
+            background-color: var(--primary);
+        }
+
+        /* SEÇÕES DE CONTEÚDO */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: var(--dark);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background-color: var(--primary-light);
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* GRID DE TECNOLOGIAS */
+        .grid-tech {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-bottom: 4px solid var(--primary-light);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        /* SEÇÃO SUSTENTABILIDADE & DESAFIOS */
+        .split-section {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .split-section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .split-text, .split-image {
+            flex: 1;
+        }
+
+        .split-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .bg-light-sec {
+            background-color: var(--light);
+            max-width: 100%;
+        }
+        .bg-light-sec > .container-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .alert-box {
+            background-color: #fff3e0;
+            border-left: 5px solid var(--warning);
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+
+        /* QUIZ INTERATIVO */
+        .quiz-container {
+            background: var(--white);
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .quiz-btn {
+            background: var(--light);
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .quiz-btn:hover {
+            background: #e2f0e2;
+            border-color: var(--primary-light);
+        }
+
+        /* CONTATO E FORMULÁRIO */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group input, .form-group textarea {
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* RODAPÉ */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                padding: 2rem;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .split-section {
+                flex-direction: column !important;
+                gap: 1.5rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="container topbar">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <span>AluraFlix</span>
-      </div>
-      <span class="pill">8 vídeos</span>
+
+    <header>
+        <nav class="nav-container">
+            <a href="#" class="logo">🌿 AgroForte</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#producao">Produção</a></li>
+                <li><a href="#sustentabilidade">Sustentabilidade</a></li>
+                <li><a href="#desafios">Desafios</a></li>
+                <li><a href="#solucoes">Futuro</a></li>
+                <li><a href="#quiz">Quiz</a></li>
+                <li><a href="#contato" class="btn-quiz">Conscientize-se</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>Agro forte, futuro sustentável</h1>
+            <p>O equilíbrio vital entre a alta produtividade agrícola e a preservação do meio ambiente.</p>
+            <a href="#producao" class="btn-cta">Conheça o Futuro do Campo</a>
+        </div>
+    </section>
+
+    <section id="producao">
+        <h2 class="section-title">Produção Agrícola & Economia</h2>
+        <div class="split-section">
+            <div class="split-text">
+                <p>O agronegócio é um dos pilares mais importantes da economia global. Ele não apenas garante a segurança alimentar de bilhões de pessoas, mas também impulsiona o desenvolvimento de tecnologia de ponta no interior do país.</p>
+                <br>
+                <p>Hoje, produzir mais não significa necessariamente desmatar mais. A chave para o crescimento econômico e produtivo está diretamente atrelada à eficiência tecnológica e inovação no manejo.</p>
+            </div>
+            <div class="split-image">
+                <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?auto=format&fit=crop&q=80&w=600" alt="Trator trabalhando em campo planejado">
+            </div>
+        </div>
+
+        <div class="grid-tech">
+            <div class="card">
+                <h3>Agricultura de Precisão</h3>
+                <p>Uso de sensores e mapeamento de dados para aplicar fertilizantes e insumos na dose e local exato, evitando desperdícios.</p>
+            </div>
+            <div class="card">
+                <h3>Irrigação Inteligente</h3>
+                <p>Sistemas automatizados que avaliam a umidade do solo em tempo real, fornecendo água apenas onde e quando a planta precisa.</p>
+            </div>
+            <div class="card">
+                <h3>Drones Agrícolas</h3>
+                <p>Sobrevoos capazes de detectar focos de pragas, falhas de plantio e estresse hídrico muito antes do olho humano.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="bg-light-sec" id="sustentabilidade">
+        <section class="container-inner" style="padding: 5rem 0;">
+            <h2 class="section-title">Sustentabilidade no Campo</h2>
+            <div class="split-section">
+                <div class="split-image">
+                    <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=600" alt="Painéis solares em área rural">
+                </div>
+                <div class="split-text">
+                    <h3>Práticas Ecológicas Eficientes</h3>
+                    <p>Produzir em harmonia com a natureza exige a adoção de fontes limpas de energia e técnicas que respeitem os ciclos biológicos do ecossistema.</p>
+                    <br>
+                    <ul>
+                        <li><strong>Conservação do Solo:</strong> Uso do plantio direto e rotação de culturas para manter os nutrientes da terra ricos e sem erosão.</li>
+                        <li><strong>Energias Limpas:</strong> Fazendas modernas utilizam energia solar fotovoltaica e usinas de biomassa gerada pelos próprios resíduos da lavoura.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
     </div>
-  </header>
 
-  <main class="container">
-    <div class="grid">
-      <!-- Iframe Video 1 -->
-      <article class="card">
-        <div class="video-wrap">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/oYRWAfh1wSA?si=2lFfy7BvOFpgXZfT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <section id="desafios">
+        <h2 class="section-title">Desafios Ambientais Atuais</h2>
+        <div class="split-section">
+            <div class="split-text">
+                <p>O crescimento populacional exige mais alimentos, exercendo uma pressão sem precedentes sobre os recursos naturais. Se os limites ecológicos não forem respeitados, o próprio futuro do agronegócio estará em risco devido às mudanças climáticas.</p>
+                
+                <div class="alert-box">
+                    <strong>Alerta Climático:</strong> O uso indiscriminado da água, o desmatamento ilegal e as altas emissões de carbono aceleram o aquecimento global, alterando o regime de chuvas indispensável para as lavouras.
+                </div>
+            </div>
+            <div class="split-image">
+                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&q=80&w=600" alt="Campo sofrendo com seca ou névoa">
+            </div>
         </div>
-        <div class="meta">
-          <div class="title">Vídeo com iframe 1</div>
-        </div>
-      </article>
+    </section>
 
-      <!-- Iframe Video 2 -->
-      <article class="card">
-        <div class="video-wrap">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/IrqVZuO6v1E?si=kPI9lucDXKaTfOPy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
-        <div class="meta">
-          <div class="title">Vídeo com iframe 2</div>
-        </div>
-      </article>
-
-      <!-- Video 3 -->
-      <article class="card">
-        <a href="https://www.youtube.com/watch?v=qEChvydiGsY" target="_blank">
-          <img class="video-thumb" src="https://i.ytimg.com/vi/qEChvydiGsY/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLCfO-Cj5DJlOt0Vlp3yqYHjI6sESQ" alt="Video 3" />
-        </a>
-        <div class="meta">
-          <div class="title">Vídeo 3</div>
-        </div>
-      </article>
-
-      <!-- Video 4 -->
-      <article class="card">
-        <a href="https://www.youtube.com/watch?v=L82w5WRx6vw" target="_blank">
-          <img class="video-thumb" src="https://i.ytimg.com/vi/L82w5WRx6vw/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLC7kk96r67IO0Amo4VpOrv5GOLrdA" alt="Video 4" />
-        </a>
-        <div class="meta">
-          <div class="title">Vídeo 4</div>
-        </div>
-      </article>
-
-      <!-- Video 5 -->
-      <article class="card">
-        <a href="https://www.youtube.com/watch?v=6vpuNsrpuz4" target="_blank">
-          <img class="video-thumb" src="https://i.ytimg.com/vi/6vpuNsrpuz4/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLB0PsAGY87AEGc2Gy_AltlaxRQlZA" alt="Video 5" />
-        </a>
-        <div class="meta">
-          <div class="title">Vídeo 5</div>
-        </div>
-      </article>
-
-      <!-- Video 6 -->
-      <article class="card">
-        <a href="https://www.youtube.com/watch?v=OeWxxTLdRBw" target="_blank">
-          <img class="video-thumb" src="https://i.ytimg.com/vi/OeWxxTLdRBw/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLB5KxZYSrtESiZhOWsKpEtWSGRY5A" alt="Video 6" />
-        </a>
-        <div class="meta">
-          <div class="title">Vídeo 6</div>
-        </div>
-      </article>
-
-      <!-- Video 7 -->
-      <article class="card">
-        <a href="https://www.youtube.com/watch?v=OrvxyaUN90Y" target="_blank">
-          <img class="video-thumb" src="https://i.ytimg.com/vi/OrvxyaUN90Y/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLDmxtJ5LeMSPh68k07n3B8CFnr2Vw" alt="Video 7" />
-        </a>
-        <div class="meta">
-          <div class="title">Vídeo 7</div>
-        </div>
-      </article>
-
-      <!-- Video 8 -->
-      <article class="card">
-        <a href="https://www.youtube.com/watch?v=W8dWDjwkMDw" target="_blank">
-          <img class="video-thumb" src="https://i.ytimg.com/vi/W8dWDjwkMDw/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLBTTmsD4xQ8WBtD4GCmY1f32Gdk7g" alt="Video 8" />
-        </a>
-        <div class="meta">
-          <div class="title">Vídeo 8</div>
-        </div>
-      </article>
+    <div class="bg-light-sec" id="solucoes">
+        <section class="container-inner" style="padding: 5rem 0;">
+            <h2 class="section-title">Soluções e o Futuro do Agro</h2>
+            <div style="text-align: center; max-width: 800px; margin: 0 auto 3rem;">
+                <p>A resposta para o equilíbrio está na <strong>Agricultura Regenerativa</strong> e no sistema de Integração Lavoura-Pecuária-Floresta (ILPF). Estas práticas combinam árvores, pastagens e plantações em uma mesma área, capturando mais carbono do que emitindo e recuperando solos degradados.</p>
+            </div>
+        </section>
     </div>
-  </main>
+
+    <section id="quiz">
+        <h2 class="section-title">Quiz: Você conhece o Agro Sustentável?</h2>
+        <div class="quiz-container">
+            <div id="quiz-window">
+                <h3 id="quiz-question">Como a irrigação inteligente ajuda o meio ambiente?</h3>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="checkAnswer(true)">Ela monitora o solo e evita o desperdício de água, regando com precisão.</button>
+                    <button class="quiz-btn" onclick="checkAnswer(false)">Ela joga o dobro de água para garantir que a planta cresça rápido.</button>
+                </div>
+                <p id="quiz-result" style="font-weight: bold; margin-top: 1rem; display: none;"></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contato">
+        <h2 class="section-title">Faça Parte da Mudança</h2>
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <p>Quer receber novidades, e-books educativos e dicas sobre tecnologias e sustentabilidade no agronegócio?</p>
+        </div>
+        
+        <form class="contact-form" onsubmit="handleFormSubmit(event)">
+            <div class="form-group">
+                <label for="name">Nome:</label>
+                <input type="text" id="name" required placeholder="Seu nome completo">
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" required placeholder="seu.email@exemplo.com">
+            </div>
+            <div class="form-group">
+                <label for="msg">Mensagem / Dúvida:</label>
+                <textarea id="msg" rows="4" placeholder="Como você enxerga o futuro do agro?"></textarea>
+            </div>
+            <button type="submit" class="btn-cta">Enviar Inscrição</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 AgroForte Verde. Desenvolvido para fins educativos e conscientização ecológica.</p>
+    </footer>
+
+    <script>
+        // Menu Responsivo Mobile
+        const mobileMenuBtn = document.getElementById('mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Fechar o menu ao clicar em qualquer link (Mobile)
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Lógica Simples do Quiz
+        function checkAnswer(isCorrect) {
+            const resultElement = document.getElementById('quiz-result');
+            resultElement.style.display = "block";
+            
+            if (isCorrect) {
+                resultElement.innerText = "🎉 Correto! A tecnologia otimiza os recursos hídricos perfeitamente.";
+                resultElement.style.color = "var(--primary)";
+            } else {
+                resultElement.innerText = "❌ Incorreto. O foco da irrigação inteligente é justamente evitar o desperdício de água.";
+                resultElement.style.color = "var(--warning)";
+            }
+        }
+
+        // Envio do Formulário de Contato
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            alert(`Obrigado pelo contato, ${name}! Seu interesse por um futuro sustentável foi registrado.`);
+            event.target.reset();
+        }
+    </script>
 </body>
 </html>
