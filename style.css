@@ -281,7 +281,7 @@ section {
 .quiz-btn:hover {
     background: #e2f0e2;
     border-color: var(--primary-light);
-    padding-left: 1.5rem; /* Efeito sutil de deslocamento */
+    padding-left: 1.5rem;
 }
 
 /* ==========================================================================
